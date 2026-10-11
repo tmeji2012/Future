@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Comisiones de Arte - Solicita tus obras personalizadas</title>
+  <style>
+    :root {
+      --primary: #2d3436;
+      --secondary: #636e72;
+      --accent: #e8c447;
+      --bg: #fafafa;
+      --text: #2c3e50;
+      --button-primary: #0070ba;
+      --button-hover: #005ea6;
+      --button-success: #00a650;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.6;
+      color: var(--text);
+      background: var(--bg);
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    ul {
+      list-style: none;
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+
+    /* Animaciones de entrada */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    header {
+      background: var(--primary);
+      color: #fff;
+      padding: 1rem 2rem;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      animation: fadeIn 0.5s ease-out;
+    }
+
+    .header-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .logo {
+      font-size: 1.8rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+
+    .nav a {
+      margin-left: 20px;
+      color: #fff;
+      font-weight: 500;
+      transition: color 0.3s, transform 0.2s;
+      position: relative;
+    }
+
+    .nav a:hover {
+      color: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    .nav a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--accent);
+      transition: width 0.3s;
+    }
+
+    .nav a:hover::after {
+      width: 100%;
+    }
+
+    .hero {
+      background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.5)), url('https://i.postimg.cc/Qtw5C8RR/110-sin-titulo-20261011161344.png');
+      background-size: cover;
+      background-position: center;
+      height: 60vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      margin-top: 60px;
+      padding: 0 20px;
+    }
+
+    .hero h1 {
+      font-size: 3.5rem;
+      margin-bottom: 1rem;
+      color: #fff;
+      animation: fadeInUp 0.8s ease-out;
+      text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
+    }
+
+    .hero p {
+      font-size: 1.3rem;
+      color: #ddd;
+      max-width: 800px;
+      margin: 0 auto;
+      animation: fadeInUp 1s ease-out 0.2s both;
+    }
+
+    .section {
+      max-width: 1200px;
+      margin: 4rem auto;
+      padding: 0 20px;
+      animation: fadeInUp 0.6s ease-out;
+    }
+
+    .section-title {
+      font-size: 2.2rem;
+      margin-bottom: 1.5rem;
+      text-align: center;
+      color: var(--primary);
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .gallery-item {
+      background: #fff;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .gallery-item:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 12px 24px rgba(0,0,0,0.15);
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      transition: transform 0.3s;
+    }
+
+    .gallery-item:hover img {
+      transform: scale(1.05);
+    }
+
+    .gallery-item h3 {
+      padding: 0.8rem;
+      text-align: center;
+      background: #f5f5f5;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    .gallery-item:hover h3 {
+      background: var(--primary);
+      color: #fff;
+    }
+
+    .commissions {
+      background: #fff;
+      padding: 2rem;
+      border-radius: 12px;
+      margin-top: 2rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .commissions:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+    }
+
+    .price-tier {
+      margin-bottom: 1.5rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid #eee;
+    }
+
+    .price-tier:last-child {
+      border-bottom: none;
+    }
+
+    .price-tier h4 {
+      margin-bottom: 0.5rem;
+      color: var(--primary);
+    }
+
+    .price-tier p {
+      color: var(--secondary);
+      font-size: 0.9rem;
+    }
+
+    /* Botones de compra mejorados */
+    #paypal-button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin: 0;
+      width: 100%;
+      max-width: 100%;
+      padding: 16px 32px;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #fff;
+      background: linear-gradient(135deg, #0070ba 0%, #005ea6 100%);
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 4px 15px rgba(0, 112, 186, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Icono de carro/comprar */
+    #paypal-button::before {
+      content: '';
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      background: currentColor;
+      mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2'%3E%3Ccircle cx='9' cy='21' r='1'%3E%3Ccircle cx='20' cy='21' r='1'%3E%3Cpath d='M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6'/%3E%3C/svg%3E");
+      mask-size: contain;
+      mask-repeat: no-repeat;
+      opacity: 0.9;
+    }
+
+    /* Efecto de brillo que pasa */
+    #paypal-button::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: left 0.5s ease;
+    }
+
+    #paypal-button:hover::after {
+      left: 100%;
+    }
+
+    #paypal-button:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 25px rgba(0, 112, 186, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+      background: linear-gradient(135deg, #005ea6 0%, #0070ba 100%);
+    }
+
+    #paypal-button:active {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 112, 186, 0.35);
+      transition: all 0.1s ease;
+    }
+
+    /* Diseño de tarjetas para comisiones */
+    .commissions-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    .commission-card {
+      position: relative;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+      transition: all 0.4s ease;
+      min-height: 400px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+    }
+
+    .commission-card:hover {
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.2);
+    }
+
+    .commission-card-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-size: cover;
+      background-position: center;
+      transition: transform 0.6s ease;
+    }
+
+    .commission-card:hover .commission-card-bg {
+      transform: scale(1.1);
+    }
+
+    .commission-card-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.4) 50%, transparent 100%);
+    }
+
+    .commission-card-content {
+      position: relative;
+      z-index: 1;
+      padding: 2rem;
+      color: #fff;
+    }
+
+    .commission-card-content h4 {
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+      color: #fff;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    }
+
+    .commission-card-content p {
+      color: rgba(255, 255, 255, 0.9);
+      font-size: 0.95rem;
+      margin-bottom: 1.5rem;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    }
+
+    .commission-card-content #paypal-button {
+      margin: 0;
+      max-width: 100%;
+    }
+
+    @media (max-width: 768px) {
+      .commissions-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    footer {
+      background: var(--primary);
+      color: #fff;
+      text-align: center;
+      padding: 2rem;
+      margin-top: 4rem;
+    }
+
+    /* Transiciones suaves para todos los elementos interactivos */
+    button, a {
+      transition: all 0.3s ease;
+    }
+
+    /* Lightbox / Modal para ver imágenes de cerca */
+    .lightbox {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.9);
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
+      animation: fadeIn 0.3s ease-out;
+    }
+
+    .lightbox.active {
+      display: flex;
+    }
+
+    .lightbox img {
+      max-width: 90%;
+      max-height: 90%;
+      object-fit: contain;
+      border-radius: 8px;
+      box-shadow: 0 0 40px rgba(0, 0, 0, 0.5);
+      animation: zoomIn 0.3s ease-out;
+    }
+
+    @keyframes zoomIn {
+      from {
+        opacity: 0;
+        transform: scale(0.8);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: 20px;
+      right: 30px;
+      font-size: 2.5rem;
+      color: #fff;
+      cursor: pointer;
+      background: none;
+      border: none;
+      transition: transform 0.3s, color 0.3s;
+      z-index: 1001;
+    }
+
+    .lightbox-close:hover {
+      transform: scale(1.2);
+      color: var(--accent);
+    }
+
+    .gallery-item {
+      cursor: zoom-in;
+    }
+
+    @media (max-width: 600px) {
+      .hero h1 { font-size: 2.2rem; }
+      .nav a { display: block; margin: 10px 0; }
+      #paypal-button { font-size: 1rem; padding: 12px 24px; }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <div class="header-container">
+    <div class="logo">ArteComisiones</div>
+    <nav class="nav">
+      <a href="#inicio">Inicio</a>
+      <a href="#demos">Demostraciones</a>
+      <a href="#comisiones">Comisiones</a>
+      <a href="#contacto">Contacto</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero" id="inicio">
+  <div>
+    <h1>Comisiones de Arte Personalizadas</h1>
+    <p>Transformo tus ideas en obras de arte originales. Desde retratos hasta paisajes, todo está a un clic de distancia.</p>
+  </div>
+</section>
+
+<section class="section" id="demos">
+  <h2 class="section-title">Demostraciones y Galeria</h2>
+  <p style="text-align:center; color:var(--secondary); margin-bottom:1rem;">
+    Apartes de arte tradicional y digital, además de renders 3D.
+  </p>
+  <div class="gallery">
+    
+    
+    <div class="gallery-item" onclick="openLightbox('https://i.postimg.cc/GhTSh9s7/image-png5.png')">
+      <img src="https://i.postimg.cc/GhTSh9s7/image-png5.png" alt="Demo 2 - Renders 3D">
+      <h3>Renders 3D</h3>
+    </div>
+    <div class="gallery-item" onclick="openLightbox('https://i.postimg.cc/XJ3k3Y6R/107-sin-titulo-20261006160014.png')">
+      <img src="https://i.postimg.cc/XJ3k3Y6R/107-sin-titulo-20261006160014.png" alt="Demo 3 - Arte digital">
+      <h3>Arte Digital</h3>
+    </div>
+    <div class="gallery-item" onclick="openLightbox('https://i.postimg.cc/Zq0x5MWs/93-sin-titulo-20261011163330.png')">
+      <img src="https://i.postimg.cc/Zq0x5MWs/93-sin-titulo-20261011163330.png" alt="Demo 5 - Ilustración conceptual">
+      <h3>Ilustración Conceptual</h3>
+    </div>
+    <div class="gallery-item" onclick="openLightbox('https://i.postimg.cc/vHdhthKB/102-sin-titulo-20261003150119.png')">
+      <img src="https://i.postimg.cc/vHdhthKB/102-sin-titulo-20261003150119.png" alt="Demo 4 - Arte mixto">
+      <h3>Arte Mixto</h3>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="comisiones">
+  <h2 class="section-title">Solicita una Comisión</h2>
+  <div class="commissions-grid">
+    <div class="commission-card">
+      <div class="commission-card-bg" style="background-image: url('https://i.postimg.cc/GhHLzPTJ/image-png2.png');"></div>
+      <div class="commission-card-overlay"></div>
+      <div class="commission-card-content">
+        <h4>Retrato a Lápiz</h4>
+        <p>Dibujo a mano alzada en formato A4, entrega digital.</p>
+        <button id="paypal-button" data-price="1" onclick="window.open('https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_s-xclick&business=thomasmejiaalmeida@gmail.com&item_name=' + encodeURIComponent('Retrato a Lápiz - Comisión de Arte') + '&amount=1.00&currency_code=USD','_blank'); return false;">Pagar $1 USD</button>
+      </div>
+    </div>
+    <div class="commission-card">
+      <div class="commission-card-bg" style="background-image: url('https://i.postimg.cc/XY5V6V8F/image-png1.png');"></div>
+      <div class="commission-card-overlay"></div>
+      <div class="commission-card-content">
+        <h4>Retrato Digital Color</h4>
+        <p>Ilustración digital completamente coloreada, alta resolución.</p>
+        <button id="paypal-button" data-price="2" onclick="window.open('https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_s-xclick&business=thomasmejiaalmeida@gmail.com&item_name=' + encodeURIComponent('Retrato Digital Color - Comisión de Arte') + '&amount=2.00&currency_code=USD','_blank'); return false;">Pagar $2 USD</button>
+      </div>
+    </div>
+    <div class="commission-card">
+      <div class="commission-card-bg" style="background-image: url('https://i.postimg.cc/TPXTRZNM/image.png');"></div>
+      <div class="commission-card-overlay"></div>
+      <div class="commission-card-content">
+        <h4>Ilustración Completa</h4>
+        <p>Personaje original con fondo detallado, entrega en múltiples formatos.</p>
+        <button id="paypal-button" data-price="4" onclick="window.open('https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_s-xclick&business=thomasmejiaalmeida@gmail.com&item_name=' + encodeURIComponent('Ilustración Completa - Comisión de Arte') + '&amount=4.00&currency_code=USD','_blank'); return false;">Pagar $4 USD</button>
+      </div>
+    </div>
+  </div>
+  <p style="text-align:center; margin-top:2rem; color:var(--secondary);">
+    Después de pagar, contáctame con tu descripción y referencias. ¡Empecemos!
+  </p>
+</section>
+
+<section class="section" id="contacto">
+  <h2 class="section-title">Contacto</h2>
+  <p>Puedes escribirme por <strong>Instagram</strong> o <strong>Email</strong> para discutir tu proyecto.</p>
+  <ul style="max-width:600px;margin:2rem auto;">
+    <li>Email: <a href="mailto:artescomisionesfuture@gmail.com">artescomisionesfuture@gmail.com</a></li>
+    <li>Instagram: <a href="https://instagram.com/tomqke" target="_blank">@tomqke</a></li>
+  </ul>
+</section>
+
+<footer>
+  <div>
+    <p>&copy; 2025 ArteComisiones. Todos los derechos reservados.</p>
+    <p>Desarrollado con <span style="color:var(--accent)">❤</span> para artistas.</p>
+  </div>
+</footer>
+
+<!-- Lightbox para ver imágenes de cerca -->
+<div class="lightbox" id="lightbox">
+  <button class="lightbox-close" onclick="closeLightbox()">&times;</button>
+  <img id="lightbox-img" src="" alt="Vista ampliada">
+</div>
+
+<script>
+  // Lightbox - Ver imágenes de cerca
+  function openLightbox(imageSrc) {
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightbox-img');
+    lightboxImg.src = imageSrc;
+    lightbox.classList.add('active');
+    document.body.style.overflow = 'hidden'; // Evitar scroll
+  }
+
+  function closeLightbox() {
+    const lightbox = document.getElementById('lightbox');
+    lightbox.classList.remove('active');
+    document.body.style.overflow = ''; // Restaurar scroll
+  }
+
+  // Cerrar con Escape
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+      closeLightbox();
+    }
+  });
+
+  // Cerrar al hacer clic fuera de la imagen
+  document.getElementById('lightbox').addEventListener('click', function(e) {
+    if (e.target === this) {
+      closeLightbox();
+    }
+  });
+</script>
+
+</body>
+</html>
